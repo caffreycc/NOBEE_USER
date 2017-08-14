@@ -1,0 +1,111 @@
+spring:
+  # 数据源配置
+  datasource:
+    # 名称
+    name: test
+    # 数据库链接
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+    # 用户名
+    username: root
+    # 密码
+    #password: "000000"
+    # type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat, wall
+    max-active: 20
+    initial-size: 1
+    max-wait: 60000
+    min-idle: 1
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: select 'x'
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-open-prepared-statements: 20
+  http:
+    encoding:
+      charset: utf-8
+    multipart:
+      max-file-size: 20mb
+      max-request-size: 20mb
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    locale: zh_CN
+  cas:
+    service: "https://localhost:8443/baseframe/login/cas"
+    casurl: "https://localhost:8443/cas"
+    loginurl: "https://localhost:8443/cas/login"
+    logout: "https://localhost:8443/cas/logout"
+    enable: false
+  web:
+    security:
+      # 不拦截url
+      ignoring: "/, /static/**/*, /login.jsp, /error, /login/cas, /page/mainContent.jsp, /page/error/404.jsp, /page/error/403.jsp,
+      /page/error/500.jsp, /user/**/*, /sec/**/*, /auth/**/*"
+      # 拦截url
+      intercept: "/**/*.jsp, /**/*.html"
+      # 登录成功跳转页面
+      successUrl: "/index.jsp"
+      # 注销成功跳转页面
+      logoutSuccessUrl: "/login.jsp"
+mybatis:
+  config:
+    # Mybatis model 路径
+    typeAliasesPackage: com.ricelink.baseframe.common.mapper.model, com.ricelink.baseframe.bs.mapper.model
+    reasonable: true
+    supportMethodsArguments: true
+    returnPageInfo: check
+    params: count=countSql
+    # Mybatis mapper xml 路径
+    mapperLocations: classpath:mybatis/mapper/*.xml
+    # Mybatis mapper interface 路径
+    basePackage: com.ricelink.baseframe.common.mapper.mapper, com.ricelink.baseframe.bs.mapper.mapper
+    # 通用 mapper 接口
+    mappers: tk.mybatis.mapper.common.Mapper
+    # 主键自增全局配置
+    identity: MYSQL
+server:
+  tomcat:
+    uri-encoding: UTF-8
+settings:
+  hostsName: https://server.ricelink.cn
+
+eos_interface_config:
+  #登录
+  #login: http://server.ricelink.cn:18800/default/org.gocom.components.coframe.auth.LoginManager.login.biz.ext
+  login: http://milinkinfo.com/nobee/default/org.gocom.components.coframe.auth.LoginManager.login.biz.ext
+  #查询客人信息列表
+  queryPotOppKH: http://milinkinfo.com/nobee/collections/org.gocom.components.coframe.framework.View.queryByFunccode.biz.ext
+  #提交测量
+  #arrangeMeasureInfos: http://server.ricelink.cn:18800/default/zydd/clgl/com.sfy.dms.md.zydd.arrangedSide.arrangeMeasureInfos.biz.ext
+  arrangeMeasureInfos: http://milinkinfo.com/nobee/measure/com.nobee.measure.measure.arrangeMeasureInfos.biz.ext
+  #潜客录入
+  #addKH: http://server.ricelink.cn:18800/default/yx/ds/com.yx.ds.KHManagement.addKH.biz.ext
+  addKH: http://milinkinfo.com/nobee/customer/com.nobee.customer.customerManagement.addKH.biz.ext
+  #更新潜客
+  updateKH: http://milinkinfo.com/nobee/customer/com.nobee.customer.customerManagement.updateKH.biz.ext
+  #删除潜客
+  deleteKH: http://milinkinfo.com/nobee/customer/com.nobee.customer.customerManagement.EBStatus.biz.ext
+  #付款
+  #addPayment: http://server.ricelink.cn:18800/default/zydd/hkgl/com.sfy.dms.md.zydd.Receivables.addSgReceivables.biz.ext
+  addPayment: http://milinkinfo.com/nobee/collections/com.nobee.collections.collections.addSgReceivables.biz.ext
+  #获取订单信息
+  #queryOrdorInfo: http://server.ricelink.cn:18800/default/zydd/hkgl/com.sfy.dms.md.zydd.Receivables.queryReceivablesAdd.biz.ext
+  queryOrdorInfo: http://milinkinfo.com/nobee/collections/com.nobee.collections.collections.queryReceivablesAdd.biz.ext
+  #付款记录查询
+  queryPaymentList: http://milinkinfo.com/nobee/collections/org.gocom.components.coframe.framework.View.queryByFunccode.biz.ext
+  #获取业务字典
+  getDictName: http://milinkinfo.com/nobee/default/com.sfy.dms.commons.GetFunccode.getDictName.biz.ext
+  #获取设计师
+  queryDesigner: http://milinkinfo.com/nobee/measure/com.sfy.dms.designer.DesignerComponent.queryDesignerByStore.biz.ext
+  #获取导购
+  queryGuid: http://milinkinfo.com/nobee/com.sfy.dms.commons.GetFunccode.getGuids.biz.ext
+  #获取城市
+  queryCitys: http://milinkinfo.com/nobee/customer/com.sfy.dms.components.city_county.getCuurentMatchCitys.biz.ext
+  #获取行政区
+  queryAreas: http://milinkinfo.com/nobee/default/com.sfy.dms.components.city_county.getCountys.biz.ext
+  #获取小区
+  querycells: http://milinkinfo.com/nobee/customer/com.sfy.dms.components.city_county.getCells.biz.ext

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nobee</groupId>
+    <artifactId>interfaceServices</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>interfaceServices</name>
+    <description>APP接口服务系统</description>
+
+    <!--米联应用基础平台-->
+    <parent>
+        <groupId>com.ricelink</groupId>
+        <artifactId>baseframe</artifactId>
+        <version>1.2.1</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <baseframe.version>1.2.8.1</baseframe.version>
+    </properties>
+
+    <dependencies>
+        <!-- 米联应用基础框架 -->
+        <dependency>
+            <groupId>com.ricelink</groupId>
+            <artifactId>baseframe-bs</artifactId>
+            <version>${baseframe.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.ricelink</groupId>
+            <artifactId>baseframe-bs</artifactId>
+            <version>${baseframe.version}</version>
+            <type>jar</type>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 排除 web 模块的日志依赖 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--http客户端-->
+        <dependency>
+            <groupId>com.ricelink.utils</groupId>
+            <artifactId>httpUtils</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>interfaceServices</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <overlays>
+                        <overlay>
+                            <groupId>com.ricelink</groupId>
+                            <artifactId>baseframe-bs</artifactId>
+                            <excludes>
+                                <exclude>WEB-INF/classes/application.yml</exclude>
+                                <exclude>WEB-INF/classes/com/ricelink/baseframe/bs/BaseframeBsApplication.class</exclude>
+                                <exclude>WEB-INF/classes/com/ricelink/baseframe/bs/ServletInitializer.class</exclude>
+                                <exclude>WEB-INF/common/common_script.jsp</exclude>
+                            </excludes>
+                        </overlay>
+                    </overlays>
+                    <attachClasses>true</attachClasses>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
